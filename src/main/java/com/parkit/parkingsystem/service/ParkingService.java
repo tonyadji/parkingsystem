@@ -1,5 +1,6 @@
 package com.parkit.parkingsystem.service;
 
+import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
@@ -104,6 +105,13 @@ public class ParkingService {
             Date outTime = new Date();
             ticket.setOutTime(outTime);
             fareCalculatorService.calculateFare(ticket);
+            //get the number of occurences when the vehicule used the parking system
+            int occurences = ticketDAO.countOccurrences(vehicleRegNumber);
+            if(occurences >= Fare.RECURRING_TIMES) {
+            	System.out.println("You benefit 5% DISCOUNT on the price "+ticket.getPrice());
+            	fareCalculatorService.applyDiscount(ticket);
+            }
+            
             if(ticketDAO.updateTicket(ticket)) {
                 ParkingSpot parkingSpot = ticket.getParkingSpot();
                 parkingSpot.setAvailable(true);
