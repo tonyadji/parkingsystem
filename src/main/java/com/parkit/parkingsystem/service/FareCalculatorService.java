@@ -21,7 +21,7 @@ public class FareCalculatorService {
         //get the difference in minutes between the inTime and the outTime
         //this difference will be divided per 60 and the result will be multiplied by the rate so that we get the price
         double differenceInMinutes = ChronoUnit.MINUTES.between(inTime,outTime);
-
+        
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {
                 ticket.setPrice((differenceInMinutes/60) * Fare.CAR_RATE_PER_HOUR);
@@ -40,4 +40,9 @@ public class FareCalculatorService {
           .atZone(ZoneId.systemDefault())
           .toLocalDateTime();
     }
+
+	public void applyDiscount(Ticket ticket) {
+		double price = ticket.getPrice();
+		ticket.setPrice(price - (price*Fare.DISCOUNT));
+	}
 }

@@ -86,4 +86,26 @@ public class TicketDAO {
         }
         return false;
     }
+    
+    public int countOccurrences(String vehicleRegNumber) {
+    	Connection con = null;
+        Ticket ticket = null;
+        int occurences = 0;
+        try {        	
+            con = dataBaseConfig.getConnection();
+            PreparedStatement ps = con.prepareStatement(DBConstants.COUNT_OCCURENCES);
+            ps.setString(1,vehicleRegNumber);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+            	occurences = rs.getInt(1);
+            }
+            dataBaseConfig.closeResultSet(rs);
+            dataBaseConfig.closePreparedStatement(ps);
+        }catch (Exception ex){
+            logger.error("Error occurs while counting",ex);
+        }finally {
+            dataBaseConfig.closeConnection(con);
+            return occurences;
+        }
+    }
 }
