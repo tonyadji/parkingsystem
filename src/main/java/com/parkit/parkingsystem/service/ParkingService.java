@@ -33,12 +33,6 @@ public class ParkingService {
             ParkingSpot parkingSpot = getNextParkingNumberIfAvailable();
             if(parkingSpot !=null && parkingSpot.getId() > 0){
                 String vehicleRegNumber = getVehichleRegNumber();
-              //get the number of occurences when the vehicule used the parking system
-                int occurences = ticketDAO.countOccurrences(vehicleRegNumber);
-                if(occurences >= Fare.RECURRING_TIMES) {
-                	System.out.println("Welcome back! As a recurring user of our parking lot, you'll benefit from a 5% discount");
-                }
-                
                 parkingSpot.setAvailable(false);
                 parkingSpotDAO.updateParking(parkingSpot);//allot this parking space and mark it's availability as false
 
@@ -114,6 +108,7 @@ public class ParkingService {
             //get the number of occurences when the vehicule used the parking system
             int occurences = ticketDAO.countOccurrences(vehicleRegNumber);
             if(occurences >= Fare.RECURRING_TIMES) {
+            	System.out.println("You benefit 5% DISCOUNT on the price "+ticket.getPrice());
             	fareCalculatorService.applyDiscount(ticket);
             }
             
