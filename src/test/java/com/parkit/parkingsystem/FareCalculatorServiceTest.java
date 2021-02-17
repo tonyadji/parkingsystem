@@ -139,5 +139,19 @@ public class FareCalculatorServiceTest {
         fareCalculatorService.applyDiscount(ticket);
         assertEquals((price - (price * Fare.DISCOUNT)), ticket.getPrice());
     }
+    
+    @Test
+    void shouldReturn_0_when_parkingTimeLessThan_30min() {
+    	Date inTime = new Date();
+        inTime.setTime( System.currentTimeMillis() - (  29 * 60 * 1000) );//29 (less than) 30min parking time should give 0 parking fare
+        Date outTime = new Date();
+        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
+
+        ticket.setInTime(inTime);
+        ticket.setOutTime(outTime);
+        ticket.setParkingSpot(parkingSpot);
+        fareCalculatorService.calculateFare(ticket);
+        assertEquals(Double.valueOf(0), ticket.getPrice());
+    }
 
 }
