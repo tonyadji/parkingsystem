@@ -35,5 +35,7 @@ public class InputReaderUtil {
         }
     }
 
-
+    public static void setScanner(Scanner newScan) {
+    	scan = newScan;
+    }
 }

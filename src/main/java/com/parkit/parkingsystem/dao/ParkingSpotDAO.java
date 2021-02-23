@@ -10,11 +10,12 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ParkingSpotDAO {
     private static final Logger logger = LogManager.getLogger("ParkingSpotDAO");
 
-    public DataBaseConfig dataBaseConfig = new DataBaseConfig();
+    public static final DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
     public int getNextAvailableSlot(ParkingType parkingType){
         Connection con = null;
@@ -25,7 +26,7 @@ public class ParkingSpotDAO {
             ps.setString(1, parkingType.toString());
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                result = rs.getInt(1);;
+                result = rs.getInt(1);
             }
             dataBaseConfig.closeResultSet(rs);
             dataBaseConfig.closePreparedStatement(ps);
@@ -36,6 +37,7 @@ public class ParkingSpotDAO {
         }
         return result;
     }
+    
 
     public boolean updateParking(ParkingSpot parkingSpot){
         //update the availability fo that parking slot
@@ -56,4 +58,5 @@ public class ParkingSpotDAO {
         }
     }
 
+    
 }
