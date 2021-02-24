@@ -1,7 +1,6 @@
 package com.parkit.parkingsystem.integration;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.AfterAll;
@@ -36,9 +35,10 @@ public class ParkingDataBaseIT {
 
     @BeforeAll
     private static void setUp() throws Exception{
+    	TicketDAO.setDataBaseConfig(dataBaseTestConfig);
+    	ParkingSpotDAO.setDataBaseConfig(dataBaseTestConfig);
         parkingSpotDAO = new ParkingSpotDAO();
         ticketDAO = new TicketDAO();
-        ticketDAO.dataBaseConfig = dataBaseTestConfig;
         dataBasePrepareService = new DataBasePrepareService();
     }
 

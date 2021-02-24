@@ -35,7 +35,7 @@ public class Ticket {
     }
 
     public double getPrice() {
-        return price;
+        return this.price;
     }
 
     public void setPrice(double price) {
@@ -43,7 +43,7 @@ public class Ticket {
     }
 
     public Date getInTime() {
-        return inTime;
+        return this.inTime;
     }
 
     public void setInTime(Date inTime) {
@@ -51,7 +51,7 @@ public class Ticket {
     }
 
     public Date getOutTime() {
-        return outTime;
+        return this.outTime;
     }
 
     public void setOutTime(Date outTime) {

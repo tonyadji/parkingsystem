@@ -66,6 +66,7 @@
 			<artifactId>maven-assembly-plugin</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -115,7 +116,7 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.5</version>
 				<executions>
-					
+
 					<execution>
 						<id>pre-unit-tests</id>
 						<goals>
@@ -140,17 +141,17 @@
 							<outputDirectory>${project.reporting.outputDirectory}/jacoco-unit-test-coverage-report</outputDirectory>
 						</configuration>
 					</execution>
-					
+
 					<execution>
-					  <id>pre-integration-test</id>
-					  <phase>pre-integration-test</phase>
-					  <goals>
-					    <goal>prepare-agent</goal>
-					  </goals>
-					  <configuration>
-					    <destFile>${project.build.directory}/jacoco-output/jacoco-integration-tests.exec</destFile>
-					    <propertyName>failsafe.jacoco.args</propertyName>
-					  </configuration>
+						<id>pre-integration-test</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<destFile>${project.build.directory}/jacoco-output/jacoco-integration-tests.exec</destFile>
+							<propertyName>failsafe.jacoco.args</propertyName>
+						</configuration>
 					</execution>
 					<!-- Ensures that the code coverage report for integration tests is 
 						created after integration tests have been run -->
@@ -165,60 +166,77 @@
 							<outputDirectory>${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report</outputDirectory>
 						</configuration>
 					</execution>
-					<!-- 
-						merge unit and integration test reports
-					 -->
+					<!-- merge unit and integration test reports -->
 					<execution>
-					  <id>merge-unit-and-integration</id>
-					    <phase>post-integration-test</phase>
-					      <goals>
-					        <goal>merge</goal>
-					      </goals>
-					      <configuration>
-					      <fileSets>
-					        <fileSet>
-					          <directory>${project.build.directory}/jacoco-output/</directory>
-					          <includes>
-					            <include>*.exec</include>
-					          </includes>
-					        </fileSet>
-					      </fileSets>
-					      <destFile>${project.build.directory}/jacoco-output/merged.exec</destFile>
-					    </configuration>
-					  </execution>
-					  <!-- 
-						generate merged report
-					 -->
-					  <execution>
-						  <id>create-merged-report</id>
-						  <phase>post-integration-test</phase>
-						  <goals>
-						    <goal>report</goal>
-						  </goals>
-						  <configuration>
-						    <dataFile>${project.build.directory}/jacoco-output/merged.exec</dataFile>
-						    <outputDirectory>${project.reporting.outputDirectory}/jacoco-merged-test-coverage-report</outputDirectory>
-						  </configuration>
-						</execution>
+						<id>merge-unit-and-integration</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>merge</goal>
+						</goals>
+						<configuration>
+							<fileSets>
+								<fileSet>
+									<directory>${project.build.directory}/jacoco-output/</directory>
+									<includes>
+										<include>*.exec</include>
+									</includes>
+								</fileSet>
+							</fileSets>
+							<destFile>${project.build.directory}/jacoco-output/merged.exec</destFile>
+						</configuration>
+					</execution>
+					<!-- generate merged report -->
+					<execution>
+						<id>create-merged-report</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<dataFile>${project.build.directory}/jacoco-output/merged.exec</dataFile>
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-merged-test-coverage-report</outputDirectory>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>
-			  <groupId>org.apache.maven.plugins</groupId>
-			  <artifactId>maven-failsafe-plugin</artifactId>
-			  <version>2.22.2</version>
-			  <configuration>
-			    <argLine>${failsafe.jacoco.args}</argLine>
-			  </configuration>
-			  <executions>
-			    <execution>
-			      <goals>
-			        <goal>integration-test</goal>
-			        <goal>verify</goal>
-			      </goals>
-			    </execution>
-			  </executions>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.22.2</version>
+				<configuration>
+					<argLine>${failsafe.jacoco.args}</argLine>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.9.1</version>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>3.1.1</version>
 			</plugin>
 		</plugins>
 	</build>
 
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>3.0.4</version>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>
