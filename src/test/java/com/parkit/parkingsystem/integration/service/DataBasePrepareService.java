@@ -14,8 +14,8 @@ public class DataBasePrepareService {
             connection = dataBaseTestConfig.getConnection();
 
             //set parking entries to available
-            connection.prepareStatement("update parking set available = true").execute();
-
+            connection.prepareStatement("UPDATE parking SET available = true").executeUpdate();
+            
             //clear ticket entries;
             connection.prepareStatement("truncate table ticket").execute();
 
