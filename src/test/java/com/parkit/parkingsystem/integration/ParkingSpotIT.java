@@ -60,4 +60,5 @@ class ParkingSpotIT {
     	//assert
     	assertTrue(result > 0); 
     }
+    
 }

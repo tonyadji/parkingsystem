@@ -99,7 +99,7 @@ public class TicketDAO {
 	public int countOccurrences(String vehicleRegNumber) {
 		int occurences = 0;
 		try (Connection con = dataBaseConfig.getConnection()){
-			PreparedStatement ps = con.prepareStatement(DBConstants.COUNT_OCCURENCES);
+			try(PreparedStatement ps = con.prepareStatement(DBConstants.COUNT_OCCURENCES)){
 				ps.setString(1, vehicleRegNumber);
 				ResultSet rs = ps.executeQuery();
 				if (rs.next()) {
@@ -107,7 +107,7 @@ public class TicketDAO {
 				}
 				dataBaseConfig.closeResultSet(rs);
 				dataBaseConfig.closePreparedStatement(ps);
-			
+			}
 		} catch (Exception ex) {
 			logger.error("Error occurs while counting", ex);
 		} 

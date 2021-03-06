@@ -21,7 +21,7 @@ import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 
 @ExtendWith(MockitoExtension.class)
-class TicketDaoITest {
+class TicketDaoIT {
 
 	private static TicketDAO ticketDAO = new TicketDAO();
 

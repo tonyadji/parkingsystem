@@ -13,12 +13,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
-		<jacoco.utReportFolder>${project.build.directory}/jacoco/test</jacoco.utReportFolder>
-		<jacoco.utReportFile>${jacoco.utReportFolder}/test.exec</jacoco.utReportFile>
-		<jacoco.itReportFolder>${project.build.directory}/jacoco/integrationTest</jacoco.itReportFolder>
-		<jacoco.itReportFile>${jacoco.itReportFolder}/integrationTest.exec</jacoco.itReportFile>
-		<junit.utReportFolder>${project.testresult.directory}/test</junit.utReportFolder>
-		<junit.itReportFolder>${project.testresult.directory}/integrationTest</junit.itReportFolder>
+		<sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco-merged-test-coverage-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 	</properties>
 
 	<dependencies>
@@ -71,11 +66,6 @@
 
 	<build>
 		<plugins>
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-assembly-plugin</artifactId> 
-				<executions> <execution> <phase>package</phase> <goals> <goal>single</goal> 
-				</goals> <configuration> <archive> <manifest> <mainClass> com.parkit.parkingsystem.App 
-				</mainClass> </manifest> </archive> <descriptorRefs> <descriptorRef>executable-jar-with-dependencies</descriptorRef> 
-				</descriptorRefs> </configuration> </execution> </executions> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
